@@ -9,7 +9,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
     uri: 'https://api.github.com/graphql',
     cache: new InMemoryCache(),
     headers: {
-        Authorization: `Bearer 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`
+        Authorization: `Bearer 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`
       }
   });
 
@@ -47,7 +47,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer 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`,
+        'Authorization': `Bearer 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`,
       },
       body: JSON.stringify({query: repoQuery}),
     }).then(res => res.json());
@@ -60,7 +60,6 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
     biggestSize = 0;
     for (const repo of repos) {
       const size = repo.diskUsage;
-      console.log("aqui" + size);
       // Guardar el nombre del repositorio y el atributo size
       if (size > biggestSize) {
         
@@ -72,4 +71,3 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
     return biggestSize;
   }
   
-
