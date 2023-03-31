@@ -12,6 +12,6 @@ This project shows a web page that lets you get information about a GitHub organ
     Run 'npm start' to start the app.
 
 # How to use the app
-    Enter the name of the GitHub organization in the text field and press the "Get data" button. 
-    A name list of organizations currently registered on GitHub will be displayed at the bottom.
+    Enter the name of the GitHub organization in the text field and press the "Get data" button.
     Organization information will be displayed.
+    A name list of organizations currently registered on GitHub will be displayed at the bottom.
