@@ -89,8 +89,8 @@ const accessToken = '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';
         biggestSize = size;
       }
     })
-  
-    return [biggestRepo, biggestSize];
+    
+    return {name: biggestRepo, size: biggestSize};
   }
 
   // We list all the organizations names

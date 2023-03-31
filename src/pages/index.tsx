@@ -8,10 +8,14 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
+  interface repository{
+    name : string;
+    size : number
+  }
   
   const [orgName, setOrgName] = useState('');
   const [numOfRepos, setNumOfRepos] = useState(null);
-  const [biggestRepo, setBiggestRepo] = useState([]);
+  const [biggestRepo, setBiggestRepo] = useState<repository | null>(null);
   const [numOfOrgs, setNumOfOrgs] = useState(null);
   const [orgList, setOrgList] = useState([]);
 
@@ -32,7 +36,7 @@ export default function Home() {
     fetchOrgList();
   }, []);
 
-  const handleOrgNameChange = (event) => {
+  const handleOrgNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Changes the organization name for posible search
     setOrgName(event.target.value);
   }
@@ -68,8 +72,8 @@ export default function Home() {
             </div>
             <div>
               <p>Number of repositories: <span style={{color: 'green', backgroundColor: 'yellow'}}>{numOfRepos}</span></p>
-              <p>Biggest repository: <span style={{color: 'green', backgroundColor: 'yellow'}}>{biggestRepo[0]}</span> with
-              <span style={{color: 'green', backgroundColor: 'yellow'}}>{biggestRepo[1]}</span> kilobytes</p>
+              <p>Biggest repository: <span style={{color: 'green', backgroundColor: 'yellow'}}>{biggestRepo?.name}</span> with
+              <span style={{color: 'green', backgroundColor: 'yellow'}}>{biggestRepo?.size}</span> kilobytes</p>
             </div>
           </pre>
           <div>  
