@@ -2,10 +2,67 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@trifork/styles/Home.module.css'
+import { useState, useEffect } from 'react';
+import { getRepositoryCount, getBiggestRepository } from '@trifork/lib/functions.js';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Index() {
+  const [orgName, setOrgName] = useState('');
+  const [numOfRepos, setNumOfRepos] = useState(null);
+  const [biggestRepo, setBiggestRepo] = useState(null);
+  const [numOfOrgs, setNumOfOrgs] = useState(null);
+
+  useEffect(() => {
+    // Aquí llamamos a la función que obtiene el número de organizaciones en Github
+    fetch('https://api.github.com/organizations')
+      .then(response => response.json())
+      .then(data => setNumOfOrgs(data.length))
+      .catch(error => console.error(error));
+  }, []);
+
+  const handleOrgNameChange = (event) => {
+    setOrgName(event.target.value);
+  }
+
+  const handleGetDataClick = () => {
+    // Aquí llamamos a las funciones que obtienen los datos de la organización
+    getRepositoryCount(orgName)
+      .then(data => setNumOfRepos(data))
+      .catch(error => console.error(error));
+
+    getBiggestRepository(orgName)
+      .then(data => setBiggestRepo(data))
+      .catch(error => console.error(error));
+  }
+
+  // Aquí calculamos el ancho de la barra en base al número de organizaciones en Github
+  const barWidth = `${(numOfOrgs / 1000000) * 100}%`;
+
+  return (
+    <div>
+      <h1>Github API Demo</h1>
+      <div>
+        <label htmlFor="orgNameInput">Organization name:</label>
+        <input type="text" id="orgNameInput" value={orgName} onChange={handleOrgNameChange} />
+        <button onClick={handleGetDataClick}>Get data</button>
+      </div>
+      <div>
+        {numOfRepos && (
+        <p>Number of repositories: {numOfRepos}</p>
+      )}
+      {biggestRepo && (
+        <p>Biggest repository: {biggestRepo} bytes</p>
+      )}
+      </div>
+      <div style={{ height: '20px', backgroundColor: 'lightgray', width: barWidth }}></div>
+      <p>Number of Github organizations: {numOfOrgs}</p>
+    </div>
+  );
+}
+
+
+/*export default function Home() {
   return (
     <>
       <Head>
@@ -120,4 +177,4 @@ export default function Home() {
       </main>
     </>
   )
-}
+}*/
