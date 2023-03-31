@@ -70,4 +70,9 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
   
     return biggestSize;
   }
-  
+
+  export const getOrgNames = async () => {
+    const response = await fetch('https://api.github.com/organizations');
+    const orgs = await response.json();
+    return orgs.map(org => org.login);
+  }

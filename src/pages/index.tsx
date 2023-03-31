@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import styles from '@trifork/styles/Home.module.css'
 import { useState, useEffect } from 'react';
-import { getRepositoryCount, getBiggestRepository } from '@trifork/lib/functions.js';
+import { getRepositoryCount, getBiggestRepository, getOrgNames } from '@trifork/lib/functions.js';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,6 +13,7 @@ export default function Home() {
   const [numOfRepos, setNumOfRepos] = useState(null);
   const [biggestRepo, setBiggestRepo] = useState(null);
   const [numOfOrgs, setNumOfOrgs] = useState(null);
+  const [orgList, setOrgList] = useState([]);
 
   useEffect(() => {
     // Aquí llamamos a la función que obtiene el número de organizaciones en Github
@@ -21,7 +22,14 @@ export default function Home() {
       .then(data => setNumOfOrgs(data.length))
       .catch(error => console.error(error));
   }, []);
-  
+
+  useEffect(() => {
+    async function fetchOrgList() {
+      const orgNames = await getOrgNames();
+      setOrgList(orgNames);
+    }
+    fetchOrgList();
+  }, []);
 
   const handleOrgNameChange = (event) => {
     setOrgName(event.target.value);
@@ -37,6 +45,7 @@ export default function Home() {
       .then(data => setBiggestRepo(data))
       .catch(error => console.error(error));
   }
+
   return (
     <>
       <Head>
@@ -62,6 +71,14 @@ export default function Home() {
       )}
       </div>
       <p>Number of Github organizations: {numOfOrgs}</p>
+      <div>
+      <h2>Organizations:</h2>
+      <ul>
+        {orgList.map((orgName, index) => (
+          <li key={index}>{orgName}</li>
+        ))}
+      </ul>
+    </div>
     </div>
       </main>
     </>
