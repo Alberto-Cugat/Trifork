@@ -1,6 +1,7 @@
 //Import of ApolloClient to use GraphQL
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
+const accessToken = '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';
   /*Initialize ApolloClient
     field uri: URL of GraphQL server
     field cache: instance of InMemoryCache
@@ -9,7 +10,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
     uri: 'https://api.github.com/graphql',
     cache: new InMemoryCache(),
     headers: {
-        Authorization: `Bearer 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`
+        Authorization: `Bearer ${accessToken}`
       }
   });
 
@@ -58,7 +59,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer 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`,
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify({query: repoQuery}),
       }).then(res => res.json());

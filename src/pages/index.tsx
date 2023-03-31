@@ -71,10 +71,10 @@ export default function Home() {
               <p>Biggest repository: <span style={{color: 'green', backgroundColor: 'yellow'}}>{biggestRepo[0]}</span> with
               <span style={{color: 'green', backgroundColor: 'yellow'}}>{biggestRepo[1]}</span> kilobytes</p>
             </div>
-            <p>Number of Github organizations: <span style={{color: 'green', backgroundColor: 'yellow'}}>{numOfOrgs}</span></p>
           </pre>
           <div>  
             <h2>Organizations:</h2>
+            <p>Number of Github organizations: <span style={{color: 'green', backgroundColor: 'yellow'}}>{numOfOrgs}</span></p>
             <pre>
               <ul>
                 {orgList.map((orgName, index) => (
