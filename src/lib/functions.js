@@ -37,6 +37,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
           repositories(first: 100) {
             nodes {
               name
+              diskUsage
             }
           }
         }
@@ -51,25 +52,19 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
       body: JSON.stringify({query: repoQuery}),
     }).then(res => res.json());
   
-    const repos = repoResult.data.organization.repositories.nodes.map(node => node.name);
+    const repos = repoResult.data.organization.repositories.nodes;
   
     // Buscar en el JSON el atributo size
     let biggestRepo = '';
     let biggestSize;
     biggestSize = 0;
     for (const repo of repos) {
-      const url = `https://api.github.com/repos/${orgName}/${repo}`;
-      const response = await fetch(url, {
-        headers: {
-          'Authorization': `Bearer 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`,
-        },
-      });
-      const json = await response.json();
-      const size = json.size;
-  
+      const size = repo.diskUsage;
+      console.log("aqui" + size);
       // Guardar el nombre del repositorio y el atributo size
       if (size > biggestSize) {
-        biggestRepo = repo;
+        
+        biggestRepo = repo.name;
         biggestSize = size;
       }
     }
