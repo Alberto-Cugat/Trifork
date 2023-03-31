@@ -1,3 +1,4 @@
+# About
 This is a simple solution for the assignment given by Trifork.This app was made using Typescript and Javascript and implemented with the React framework Next.js. Shows a web page that lets you get information about a GitHub organization, such as the number of repositories, the largest one and the number of organizations currently registered in GitHub.
 
 # Requirements
